@@ -8,6 +8,7 @@ public class Initializer : MonoBehaviour
     public GameObject ui;
     public GameObject startPanel;
 
+    public GameObject titelUi;
     public GameObject loadingUi;
     public Slider loadingSlider;
     public TMP_Text loadingText;
@@ -17,6 +18,9 @@ public class Initializer : MonoBehaviour
 
     public void InitializeGame(UnityAction earlyInit, UnityAction init, UnityAction lateInit)
     {
+        Application.targetFrameRate = 9999;
+
+        titelUi.SetActive(true);
         loadingUi.SetActive(true);
         ui.SetActive(false);
 
@@ -37,6 +41,8 @@ public class Initializer : MonoBehaviour
         loadingSlider.value = 1;
         loadingText.text = "Finished!";
 
+        Application.targetFrameRate = -1;
+
         startButton.SetActive(true);
     }
 
@@ -49,11 +55,12 @@ public class Initializer : MonoBehaviour
         if (gameManager.ui == null || gameManager.player == null || gameManager.inputHandler == null)
             Debug.LogError("Player or UI or Input Handler not initialized!");
 
-        lateInit.Invoke();
-
+        titelUi.SetActive(false);
         loadingUi.SetActive(false);
         ui.SetActive(true);
         startPanel.SetActive(true);
+
+        lateInit.Invoke();
 
         gameManager.StartGame();
     }

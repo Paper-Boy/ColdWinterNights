@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,6 +10,7 @@ public class UI : MonoBehaviour
     public Slider healthAmount;
     public TMP_Text healthDeltaText;
     public Image whiteOut;
+    public GameObject deathPanel;
 
     public GameObject debugParent;
     public TMP_Text timeText;
@@ -29,6 +31,7 @@ public class UI : MonoBehaviour
     private void Awake()
     {
         GameManager.instance.init += Init;
+        GameManager.instance.lateInit = LateInit;
     }
 
     private void Init()
@@ -41,8 +44,17 @@ public class UI : MonoBehaviour
         buildOverlay.SetActive(false);
 
         health.Enqueue(GameManager.instance.player.Health);
+    }
 
-        debugParent.SetActive(GameManager.instance.debug);
+    private void LateInit()
+    {
+        if (GameManager.instance.debug)
+        {
+            debugParent.SetActive(true);
+            StartCoroutine(DebugUI());
+        }
+        else
+            debugParent.SetActive(false);
     }
 
     private void UpdateC()
@@ -69,23 +81,28 @@ public class UI : MonoBehaviour
         else
             healthDeltaText.text = "";
 
-        if (GameManager.instance.player.Health <= 10.0f)
+        if (GameManager.instance.player.Health <= 25.0f)
         {
             whiteOut.gameObject.SetActive(true);
-            whiteOut.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - (GameManager.instance.player.Health / 10.0f));
+            whiteOut.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - (GameManager.instance.player.Health / 25.0f));
         }
         else
         {
             whiteOut.gameObject.SetActive(false);
         }
+    }
 
-        if (GameManager.instance.debug)
+    private IEnumerator DebugUI()
+    {
+        int count = 0;
+
+        for (; ; )
         {
-            timeText.text = GameManager.instance.GameTime.ToString("0.00");
+            float curFPS = 1.0f / Time.unscaledDeltaTime;
 
-            fps.Enqueue(1.0f / Time.unscaledDeltaTime);
+            fps.Enqueue(curFPS);
 
-            while (fps.Count > 100)
+            while (fps.Count > 50)
                 fps.Dequeue();
 
             float buf = 0.0f;
@@ -93,7 +110,16 @@ public class UI : MonoBehaviour
             foreach (float f in fps)
                 buf += f;
 
-            performanceText.text = (buf / fps.Count).ToString("0.00") + " FPS";
+            count++;
+
+            if (count >= curFPS * 0.05f)
+            {
+                timeText.text = GameManager.instance.GameTime.ToString("0.00");
+                performanceText.text = (buf / fps.Count).ToString("0.00") + " FPS";
+                count = 0;
+            }
+
+            yield return null;
         }
     }
 
@@ -122,5 +148,10 @@ public class UI : MonoBehaviour
     {
         foresterButton.SetActive(true);
         guardTowerButton.SetActive(true);
+    }
+
+    public void Death()
+    {
+        deathPanel.SetActive(true);
     }
 }

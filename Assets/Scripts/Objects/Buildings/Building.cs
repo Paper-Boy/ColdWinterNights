@@ -25,7 +25,7 @@ public abstract class Building : MonoBehaviour, IObject
     public Slider hitSlider;
 
     public ShadowCaster2D shadowCaster;
-    public GameObject rememberMe;
+    public SpriteRenderer overlay;
 
     public ObjectType ObjectsType { get; } = ObjectType.Building;
 
@@ -38,7 +38,6 @@ public abstract class Building : MonoBehaviour, IObject
         gameObject.layer = (int)Layers.Building;
 
         woodRemainingText.text = woodNeeded.ToString("0");
-        rememberMe.SetActive(false);
         shadowCaster.enabled = false;
     }
 
@@ -73,7 +72,8 @@ public abstract class Building : MonoBehaviour, IObject
                 sprite.sprite = built;
                 woodRemainingText.gameObject.SetActive(false);
                 woodImage.gameObject.SetActive(false);
-                rememberMe.SetActive(true);
+                overlay.sprite = built;
+                overlay.transform.localScale = new Vector3(1, 1, 1);
                 shadowCaster.enabled = true;
 
                 return -woodNeeded;

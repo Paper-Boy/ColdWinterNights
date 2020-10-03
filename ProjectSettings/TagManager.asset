@@ -44,3 +44,6 @@ TagManager:
   - name: Monster
     uniqueID: 558540971
     locked: 0
+  - name: Snow
+    uniqueID: 3488193863
+    locked: 0

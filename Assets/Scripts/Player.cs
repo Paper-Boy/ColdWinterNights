@@ -3,6 +3,8 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
+    public bool loseLife = true;
+
     // Navigation
     private Vector2 targetPosition = new Vector2(-999, -999);
     private GameObject targetObject = null;
@@ -200,11 +202,21 @@ public class Player : MonoBehaviour
 
     public void AddHealth(float amount)
     {
+        if (!loseLife)
+            return;
+
         Health += amount;
         Health = Mathf.Clamp(Health, 0.0f, 100.0f);
 
-        flashlight.localScale = new Vector3(3.5f, 5.0f * (Health / 100), 1.0f);
-        flashlightCircle.localScale = new Vector3(1.0f, 1.0f, 1.0f) * (Health / 100);
+        float flashlightScale = Mathf.Clamp(Health / 100, 0.5f, 1.0f);
+
+        flashlight.localScale = new Vector3(4.0f, 5.0f * flashlightScale, 1.0f);
+        flashlightCircle.localScale = new Vector3(1.0f, 1.0f, 1.0f) * flashlightScale;
+
+        if(Health == 0.0f)
+        {
+            GameManager.instance.Death();
+        }
     }
 
     // Only in Editor

@@ -13,8 +13,6 @@ public class GameManager : MonoBehaviour
             instance = this;
         else
             Destroy(this);
-
-        Application.targetFrameRate = 300;
     }
 
     #endregion
@@ -68,6 +66,13 @@ public class GameManager : MonoBehaviour
     }
 
     #endregion
+
+    public void Death()
+    {
+        Running = false;
+
+        ui.Death();
+    }
 
     // Options
     public bool debug;

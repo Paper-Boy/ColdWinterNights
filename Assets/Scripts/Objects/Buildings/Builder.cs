@@ -10,7 +10,7 @@ public class Builder : MonoBehaviour
 
     private Vector2 targetPos = new Vector2(-999, -999);
     private float time;
-    private bool update = true;
+    private int update = 2;
 
     public Button confirmButton;
 
@@ -26,10 +26,10 @@ public class Builder : MonoBehaviour
 
     private void FixedUpdateC()
     {
-        if (update == true)
+        if (update > 0)
         {
             UpdateBuildability();
-            update = false;
+            update--;
         }
 
         if (targetPos != new Vector2(-999, -999) && time <= GameManager.instance.GameTime)
@@ -37,7 +37,7 @@ public class Builder : MonoBehaviour
             transform.position = targetPos;
             targetPos = new Vector2(-999, -999);
 
-            update = true;
+            update++;
         }
     }
 

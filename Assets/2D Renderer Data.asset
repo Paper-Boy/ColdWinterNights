@@ -28,7 +28,7 @@ MonoBehaviour:
   - name: Blend Style 1
     maskTextureChannel: 0
     renderTextureScale: 1
-    blendMode: 1
+    blendMode: 0
     customBlendFactors:
       multiplicative: 0
       additive: 0
