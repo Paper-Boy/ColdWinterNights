@@ -12,11 +12,15 @@ public class Tree : MonoBehaviour, IObject
     private bool alive = true;
     private bool old = false;
 
+    private new CompositeCollider2D collider2D;
+
     public ObjectType ObjectsType { get; } = ObjectType.Tree;
 
     private void Start()
     {
         born = GameManager.instance.GameTime;
+
+        collider2D = GetComponent<CompositeCollider2D>();
 
         if (!GameManager.instance.light)
         {
@@ -64,5 +68,10 @@ public class Tree : MonoBehaviour, IObject
     public void OldTree()
     {
         old = true;
+    }
+
+    public Vector2 ClosestPoint(Vector2 from)
+    {
+        return collider2D.ClosestPoint(from);
     }
 }

@@ -112,7 +112,9 @@ public class Player : MonoBehaviour
             switch (targetObject.GetComponent<IObject>().ObjectsType)
             {
                 case ObjectType.Tree:
-                    if (Vector2.Distance(transform.position, targetObject.transform.position) < 0.25f)
+                    Vector2 closestPoint = targetObject.GetComponent<Tree>().ClosestPoint(transform.position);
+
+                    if (Vector2.Distance(transform.position, closestPoint) < 0.25f)
                     {
                         animator.SetBool("axe", true);
 
@@ -146,7 +148,10 @@ public class Player : MonoBehaviour
         }
         else if (targetPosition != new Vector2(-999, -999))
         {
-            WalkTowards(targetPosition);
+            if (targetPosition == (Vector2)transform.position)
+                targetPosition = new Vector2(-999, -999);
+            else
+                WalkTowards(targetPosition);
         }
     }
 
