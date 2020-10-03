@@ -1,0 +1,95 @@
+﻿using TMPro;
+using UnityEngine;
+using UnityEngine.Experimental.Rendering.Universal;
+using UnityEngine.UI;
+
+public abstract class Building : MonoBehaviour, IObject
+{
+    public new string name;
+
+    public Sprite icon;
+    public Sprite inConstruction;
+    public Sprite built;
+
+    public int woodNeeded;
+
+    public float range;
+
+    private SpriteRenderer sprite;
+
+    public float hitPoints = 200.0f;
+
+    public TMP_Text woodRemainingText;
+    public Image woodImage;
+
+    public Slider hitSlider;
+
+    public ShadowCaster2D shadowCaster;
+    public GameObject rememberMe;
+
+    public ObjectType ObjectsType { get; } = ObjectType.Building;
+
+    public virtual void Awake()
+    {
+        GameManager.instance.update += UpdateC;
+
+        sprite = GetComponent<SpriteRenderer>();
+        sprite.sprite = inConstruction;
+        gameObject.layer = (int)Layers.Building;
+
+        woodRemainingText.text = woodNeeded.ToString("0");
+        rememberMe.SetActive(false);
+        shadowCaster.enabled = false;
+    }
+
+    public virtual void UpdateC()
+    {
+        if (woodNeeded <= 0)
+        {
+            hitPoints = Mathf.Clamp(hitPoints - 0.25f * Time.deltaTime, 0, 200);
+
+            if (hitPoints < 100.0f)
+            {
+                hitSlider.gameObject.SetActive(true);
+                hitSlider.value = hitPoints;
+            }
+            else
+            {
+                hitSlider.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    public virtual int Build(int wood)
+    {
+        if (woodNeeded > 0)
+        {
+            woodNeeded -= wood;
+
+            woodRemainingText.text = woodNeeded.ToString("0");
+
+            if (woodNeeded <= 0)
+            {
+                sprite.sprite = built;
+                woodRemainingText.gameObject.SetActive(false);
+                woodImage.gameObject.SetActive(false);
+                rememberMe.SetActive(true);
+                shadowCaster.enabled = true;
+
+                return -woodNeeded;
+            }
+        }
+        else
+        {
+            hitPoints += wood;
+        }
+
+        return 0;
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, range);
+    }
+}
