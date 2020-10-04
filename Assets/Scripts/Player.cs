@@ -116,7 +116,7 @@ public class Player : MonoBehaviour
                 case ObjectType.Tree:
                     Vector2 closestPoint = targetObject.GetComponent<Tree>().ClosestPoint(transform.position);
 
-                    if (Vector2.Distance(transform.position, closestPoint) < 0.25f)
+                    if (Vector2.Distance(transform.position, closestPoint) < 0.15f)
                     {
                         animator.SetBool("axe", true);
 

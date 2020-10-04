@@ -6,21 +6,19 @@ public class Tree : MonoBehaviour, IObject
     public Material litMaterial;
     public Material unlitMaterial;
 
+    public new BoxCollider2D collider2D;
+
     private float born = 0.0f;
     private float hitPoints = 1.0f;
 
     private bool alive = true;
     private bool old = false;
 
-    private new CompositeCollider2D collider2D;
-
     public ObjectType ObjectsType { get; } = ObjectType.Tree;
 
     private void Start()
     {
         born = GameManager.instance.GameTime;
-
-        collider2D = GetComponent<CompositeCollider2D>();
 
         if (!GameManager.instance.light)
         {

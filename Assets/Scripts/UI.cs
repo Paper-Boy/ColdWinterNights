@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -11,6 +12,7 @@ public class UI : MonoBehaviour
     public TMP_Text healthDeltaText;
     public Image whiteOut;
     public GameObject deathPanel;
+    public TMP_Text scoreText;
 
     public GameObject debugParent;
     public TMP_Text timeText;
@@ -18,6 +20,8 @@ public class UI : MonoBehaviour
     private readonly Queue<float> fps = new Queue<float>();
 
     private readonly Queue<float> health = new Queue<float>();
+
+    public GameObject helpOverlay;
 
     public GameObject buildButton;
     public GameObject buildOverlay;
@@ -72,14 +76,29 @@ public class UI : MonoBehaviour
 
         float diff = GameManager.instance.player.Health - healthAverage;
 
+        ColorBlock colors = healthAmount.colors;
+        colors.normalColor = Color.white;
+
         if (Mathf.RoundToInt(GameManager.instance.player.Health) == 100)
+        {
             healthDeltaText.text = "";
+        }
         else if (diff >= 0.01f)
+        {
             healthDeltaText.text = "▲";
+            colors.normalColor = Color.green;
+        }
         else if (diff <= -0.01f)
+        {
             healthDeltaText.text = "▼";
+            colors.normalColor = Color.red;
+        }
         else
+        {
             healthDeltaText.text = "";
+        }
+
+        healthAmount.colors = colors;
 
         if (GameManager.instance.player.Health <= 25.0f)
         {
@@ -153,5 +172,30 @@ public class UI : MonoBehaviour
     public void Death()
     {
         deathPanel.SetActive(true);
+        TimeSpan time = TimeSpan.FromSeconds(GameManager.instance.GameTime);
+        StartCoroutine(ScoreText("You survived for " + time.ToString("mm':'ss") + " minutes!"));
+    }
+
+    private IEnumerator ScoreText(string text)
+    {
+        string bufText = "";
+
+        yield return new WaitForSeconds(4.5f);
+
+        for (int i = 0; i < text.Length; i++)
+        {
+            scoreText.text = bufText + "_";
+
+            yield return new WaitForSeconds(0.1f);
+
+            bufText += text[i];
+        }
+
+        scoreText.text = bufText;
+    }
+
+    public void HelpOverlay(bool show)
+    {
+        helpOverlay.SetActive(show);
     }
 }

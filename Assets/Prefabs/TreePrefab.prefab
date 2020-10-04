@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3456120471283215940}
   - component: {fileID: 6843671974400337388}
   - component: {fileID: 6829342023017581944}
-  - component: {fileID: 7069902179180879437}
+  - component: {fileID: 4636325194293243503}
   - component: {fileID: 6968789779476184559}
   - component: {fileID: 873537419759390978}
   - component: {fileID: 1469150659330482551}
@@ -102,10 +102,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.0036446303, y: 0}
+  m_Offset: {x: 0, y: 0.81}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1, y: 1.625}
     newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
@@ -128,10 +128,10 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.014578223, y: -0.24230349}
+  m_Offset: {x: 0, y: 0.57}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
+    pivot: {x: 0.5, y: 0}
     oldSize: {x: 1, y: 1.625}
     newSize: {x: 0.2, y: 0.2}
     adaptiveTilingThreshold: 0.5
@@ -141,8 +141,8 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.7375927, y: 0.768739}
   m_EdgeRadius: 0
---- !u!66 &7069902179180879437
-CompositeCollider2D:
+--- !u!61 &4636325194293243503
+BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -151,50 +151,22 @@ CompositeCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_GeometryType: 0
-  m_GenerationType: 0
+  m_Offset: {x: 0.0055713058, y: 0.74287343}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0}
+    oldSize: {x: 1, y: 1.625}
+    newSize: {x: 0.2, y: 0.2}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.74371874, y: 1.4857469}
   m_EdgeRadius: 0
-  m_ColliderPaths:
-  - m_Collider: {fileID: 6843671974400337388}
-    m_ColliderPaths:
-    - - X: 560460
-        Y: -3656250
-      - X: 560460
-        Y: 3656250
-      - X: -593554
-        Y: 3655957
-      - X: -593261
-        Y: -3656250
-  - m_Collider: {fileID: 6829342023017581944}
-    m_ColliderPaths:
-    - - X: 1724892
-        Y: -2820028
-      - X: 1724892
-        Y: 639297
-      - X: -1593981
-        Y: 639004
-      - X: -1593688
-        Y: -2820028
-  m_CompositePaths:
-    m_Paths:
-    - - {x: 0.056046, y: -0.2820028}
-      - {x: 0.1724892, y: -0.2820028}
-      - {x: 0.1724892, y: 0.0639297}
-      - {x: 0.056046, y: 0.0639194}
-      - {x: 0.056046, y: 0.365625}
-      - {x: -0.0593554, y: 0.3655957}
-      - {x: -0.0593433, y: 0.0639092}
-      - {x: -0.15939811, y: 0.0639004}
-      - {x: -0.1593688, y: -0.2820028}
-      - {x: -0.059329502, y: -0.2820028}
-      - {x: -0.0593261, y: -0.365625}
-      - {x: 0.056046, y: -0.365625}
-  m_VertexDistance: 0.0005
-  m_OffsetDistance: 0
 --- !u!50 &6968789779476184559
 Rigidbody2D:
   serializedVersion: 4
@@ -246,7 +218,7 @@ MonoBehaviour:
   - {x: -0.20642322, y: 0.93363726, z: 0}
   m_ShapePathHash: -1629397647
   m_Mesh: {fileID: 0}
-  m_InstanceId: 55904
+  m_InstanceId: 49780
 --- !u!114 &1469150659330482551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -261,6 +233,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   litMaterial: {fileID: 2100000, guid: 6dfa6253025253f438901dc51c8b6e82, type: 2}
   unlitMaterial: {fileID: 2100000, guid: 0407edb06e1ce5e48a4e4ae9c15f9d1c, type: 2}
+  collider2D: {fileID: 4636325194293243503}
 --- !u!1 &3944781879078384852
 GameObject:
   m_ObjectHideFlags: 0
@@ -286,7 +259,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3944781879078384852}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.1, z: 0}
+  m_LocalPosition: {x: 0, y: -0.3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1838440512601086630}

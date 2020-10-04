@@ -100,7 +100,7 @@ public class Monster : MonoBehaviour
         else
         {
             animator.SetBool("walking", false);
-            player.GetComponent<Player>().AddHealth(-2.0f * Time.fixedDeltaTime);
+            player.GetComponent<Player>().AddHealth(-1.5f * Time.fixedDeltaTime);
         }
     }
 
