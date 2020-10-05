@@ -7,9 +7,13 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
+    // UI Elements
     public TMP_Text woodAmountText;
     public Slider healthAmount;
     public TMP_Text healthDeltaText;
+    public Slider thermometer;
+    public TMP_Text thermomenterDeltaText;
+
     public Image whiteOut;
     public GameObject deathPanel;
     public TMP_Text scoreText;
@@ -17,20 +21,21 @@ public class UI : MonoBehaviour
     public GameObject debugParent;
     public TMP_Text timeText;
     public TMP_Text performanceText;
-    private readonly Queue<float> fps = new Queue<float>();
-
-    private readonly Queue<float> health = new Queue<float>();
 
     public GameObject helpOverlay;
-
-    public GameObject buildButton;
     public GameObject buildOverlay;
-    public Transform buildingsParent;
 
+    public Transform buildingsParent;
     public GameObject builderPrefab;
 
+    public GameObject buildButton;
     public GameObject foresterButton;
     public GameObject guardTowerButton;
+
+    // Average Values
+    private readonly Queue<float> fps = new Queue<float>();
+    private readonly Queue<float> health = new Queue<float>();
+    private readonly Queue<float> temp = new Queue<float>();
 
     private void Awake()
     {
@@ -42,7 +47,7 @@ public class UI : MonoBehaviour
     {
         GameManager.instance.ui = this;
 
-        GameManager.instance.update += UpdateC;
+        GameManager.instance.lateUpdate += LateUpdateC;
 
         woodAmountText.text = 0.ToString();
         buildOverlay.SetActive(false);
@@ -58,16 +63,21 @@ public class UI : MonoBehaviour
             StartCoroutine(DebugUI());
         }
         else
+        {
             debugParent.SetActive(false);
+        }
     }
 
-    private void UpdateC()
+    private void LateUpdateC()
     {
+        // Wood
         woodAmountText.text = GameManager.instance.player.Wood.ToString();
+
+        // Health
         healthAmount.value = GameManager.instance.player.Health;
 
         health.Enqueue(GameManager.instance.player.Health);
-        while (health.Count > 20)
+        while (health.Count > 100)
             health.Dequeue();
         float healthAverage = 0.0f;
         foreach (float f in health)
@@ -77,21 +87,20 @@ public class UI : MonoBehaviour
         float diff = GameManager.instance.player.Health - healthAverage;
 
         ColorBlock colors = healthAmount.colors;
-        colors.normalColor = Color.white;
+        colors.disabledColor = Color.green;
 
         if (Mathf.RoundToInt(GameManager.instance.player.Health) == 100)
         {
             healthDeltaText.text = "";
         }
-        else if (diff >= 0.01f)
+        else if (diff >= 0.025f)
         {
             healthDeltaText.text = "▲";
-            colors.normalColor = Color.green;
         }
-        else if (diff <= -0.01f)
+        else if (diff <= -0.025f)
         {
             healthDeltaText.text = "▼";
-            colors.normalColor = Color.red;
+            colors.disabledColor = Color.red;
         }
         else
         {
@@ -108,6 +117,32 @@ public class UI : MonoBehaviour
         else
         {
             whiteOut.gameObject.SetActive(false);
+        }
+
+        // Temperatur
+        thermometer.value = GameManager.instance.player.Temperature;
+
+        temp.Enqueue(GameManager.instance.player.Temperature);
+        while (temp.Count > 100)
+            temp.Dequeue();
+        float tempAverage = 0.0f;
+        foreach (float f in temp)
+            healthAverage += f;
+        tempAverage /= temp.Count;
+
+        diff = GameManager.instance.player.Temperature - tempAverage;
+
+        if (diff >= 0.025f)
+        {
+            thermomenterDeltaText.text = "▲";
+        }
+        else if (diff <= -0.025f)
+        {
+            thermomenterDeltaText.text = "▼";
+        }
+        else
+        {
+            thermomenterDeltaText.text = "";
         }
     }
 

@@ -49,6 +49,7 @@ public class GameManager : MonoBehaviour
     public float GameTime { get; private set; } = 0.0f;
 
     public UnityAction update;
+    public UnityAction lateUpdate;
     public UnityAction fixedUpdate;
 
     private void Update()
@@ -59,6 +60,9 @@ public class GameManager : MonoBehaviour
 
             if (update != null && GameTime >= 0.2f)
                 update.Invoke();
+
+            if (lateUpdate != null)
+                lateUpdate.Invoke();
         }
     }
 
@@ -96,6 +100,8 @@ public class GameManager : MonoBehaviour
     public InputHandler inputHandler;
     [HideInInspector]
     public MapGenerator mapGenerator;
+    [HideInInspector]
+    public TemperatureMap temperatureMap;
 }
 
 internal enum Layers

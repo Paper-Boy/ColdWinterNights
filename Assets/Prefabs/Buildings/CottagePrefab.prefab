@@ -180,7 +180,7 @@ MonoBehaviour:
   - {x: -0.3921855, y: -0.16777891, z: 0}
   m_ShapePathHash: 1854430544
   m_Mesh: {fileID: 0}
-  m_InstanceId: 97790
+  m_InstanceId: 19978
 --- !u!114 &816165236252843572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -648,7 +648,7 @@ MonoBehaviour:
     m_PressedTrigger: Pressed
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
-  m_Interactable: 1
+  m_Interactable: 0
   m_TargetGraphic: {fileID: 0}
   m_FillRect: {fileID: 311522627826333123}
   m_HandleRect: {fileID: 0}
@@ -656,7 +656,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 100
   m_WholeNumbers: 0
-  m_Value: 100
+  m_Value: 0
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -693,9 +693,9 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0.01, y: 0}
+  m_SizeDelta: {x: 0.001, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2064090306988057007
 CanvasRenderer:

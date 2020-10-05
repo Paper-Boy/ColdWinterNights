@@ -12,7 +12,8 @@ public class MapGenerator : MonoBehaviour
 
     [HideInInspector]
     public Vector2 mapSize;
-    private float[,] noiseMap;
+    [HideInInspector]
+    public float[,] noiseMap;
     private int[,] map;
 
     private void Awake()
@@ -87,8 +88,11 @@ public class MapGenerator : MonoBehaviour
                 if (map[x, y] == 1)
                 {
                     Vector2 pos = new Vector2(
-                        (x - width / 2.0f) / 25.0f,
-                        (height / 2.0f - y) / 25.0f);
+                        x: (x - width / 2.0f) / 25.0f,
+                        y: (height / 2.0f - y) / 25.0f);
+
+
+
                     Instantiate(treePrefab, pos, Quaternion.identity, treeParent).GetComponent<Tree>().OldTree();
                 }
             }

@@ -39,6 +39,8 @@ public class Player : MonoBehaviour
     public int Wood { private set; get; } = 0;
     public float Health { private set; get; } = 100.0f; // Max 100
 
+    public float Temperature { private set; get; } = 0.0f;
+
     #region Initialization
 
     private void Awake()
@@ -103,7 +105,8 @@ public class Player : MonoBehaviour
         if (Health <= 0.0f)
             return;
 
-        AddHealth(-0.5f * Time.deltaTime);
+        CalculateTemperature();
+        AddHealth(Temperature * 1.5f * Time.deltaTime);
 
         animator.SetBool("axe", false);
         animator.SetBool("walking", false);
@@ -213,10 +216,16 @@ public class Player : MonoBehaviour
         flashlight.localScale = new Vector3(4.0f, 5.0f * flashlightScale, 1.0f);
         flashlightCircle.localScale = new Vector3(1.0f, 1.0f, 1.0f) * flashlightScale;
 
-        if(Health == 0.0f)
+        if(Health <= 0.0f)
         {
             GameManager.instance.Death();
         }
+    }
+
+    private void CalculateTemperature()
+    {
+        float delta = GameManager.instance.temperatureMap.GetTemp(transform.position) - Temperature;
+        Temperature = Mathf.Clamp(Temperature + (delta * Time.deltaTime * 0.005f), -1.0f, 1.0f);
     }
 
     // Only in Editor
