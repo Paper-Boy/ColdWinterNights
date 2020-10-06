@@ -10,7 +10,6 @@ public class UI : MonoBehaviour
     // UI Elements
     public TMP_Text woodAmountText;
     public Slider healthAmount;
-    public TMP_Text healthDeltaText;
     public Slider thermometer;
     public TMP_Text thermomenterDeltaText;
 
@@ -74,8 +73,6 @@ public class UI : MonoBehaviour
         woodAmountText.text = GameManager.instance.player.Wood.ToString();
 
         // Health
-        healthAmount.value = GameManager.instance.player.Health;
-
         health.Enqueue(GameManager.instance.player.Health);
         while (health.Count > 100)
             health.Dequeue();
@@ -84,31 +81,9 @@ public class UI : MonoBehaviour
             healthAverage += f;
         healthAverage /= health.Count;
 
-        float diff = GameManager.instance.player.Health - healthAverage;
+        healthAmount.value = Mathf.CeilToInt(healthAverage);
 
-        ColorBlock colors = healthAmount.colors;
-        colors.disabledColor = Color.green;
-
-        if (Mathf.RoundToInt(GameManager.instance.player.Health) == 100)
-        {
-            healthDeltaText.text = "";
-        }
-        else if (diff >= 0.025f)
-        {
-            healthDeltaText.text = "▲";
-        }
-        else if (diff <= -0.025f)
-        {
-            healthDeltaText.text = "▼";
-            colors.disabledColor = Color.red;
-        }
-        else
-        {
-            healthDeltaText.text = "";
-        }
-
-        healthAmount.colors = colors;
-
+        // White Out
         if (GameManager.instance.player.Health <= 25.0f)
         {
             whiteOut.gameObject.SetActive(true);
@@ -120,23 +95,23 @@ public class UI : MonoBehaviour
         }
 
         // Temperatur
-        thermometer.value = GameManager.instance.player.Temperature;
-
         temp.Enqueue(GameManager.instance.player.Temperature);
         while (temp.Count > 100)
             temp.Dequeue();
         float tempAverage = 0.0f;
         foreach (float f in temp)
-            healthAverage += f;
+            tempAverage += f;
         tempAverage /= temp.Count;
 
-        diff = GameManager.instance.player.Temperature - tempAverage;
+        thermometer.value = tempAverage;
 
-        if (diff >= 0.025f)
+        float diff = GameManager.instance.player.Temperature - tempAverage;
+
+        if (diff >= 0.001f)
         {
             thermomenterDeltaText.text = "▲";
         }
-        else if (diff <= -0.025f)
+        else if (diff <= -0.001f)
         {
             thermomenterDeltaText.text = "▼";
         }
