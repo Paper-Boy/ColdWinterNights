@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6968789779476184559}
   - component: {fileID: 873537419759390978}
   - component: {fileID: 1469150659330482551}
+  - component: {fileID: 7397347371919073033}
   m_Layer: 9
   m_Name: TreePrefab
   m_TagString: Untagged
@@ -218,7 +219,7 @@ MonoBehaviour:
   - {x: -0.20642322, y: 0.93363726, z: 0}
   m_ShapePathHash: -1629397647
   m_Mesh: {fileID: 0}
-  m_InstanceId: 49780
+  m_InstanceId: 31108
 --- !u!114 &1469150659330482551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,6 +235,25 @@ MonoBehaviour:
   litMaterial: {fileID: 2100000, guid: 6dfa6253025253f438901dc51c8b6e82, type: 2}
   unlitMaterial: {fileID: 2100000, guid: 0407edb06e1ce5e48a4e4ae9c15f9d1c, type: 2}
   collider2D: {fileID: 4636325194293243503}
+--- !u!95 &7397347371919073033
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1196897247785960455}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 819d1fc5d5b49e84380ef6665a019602, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &3944781879078384852
 GameObject:
   m_ObjectHideFlags: 0

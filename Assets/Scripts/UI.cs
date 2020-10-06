@@ -31,6 +31,8 @@ public class UI : MonoBehaviour
     public GameObject foresterButton;
     public GameObject guardTowerButton;
 
+    private Player player;
+
     // Average Values
     private readonly Queue<float> fps = new Queue<float>();
     private readonly Queue<float> health = new Queue<float>();
@@ -51,7 +53,14 @@ public class UI : MonoBehaviour
         woodAmountText.text = 0.ToString();
         buildOverlay.SetActive(false);
 
-        health.Enqueue(GameManager.instance.player.Health);
+        player = GameManager.instance.player;
+
+        health.Enqueue(player.Health);
+    }
+
+    private void OnEnable()
+    {
+        StartCoroutine(UpdateHealthAndTemp());
     }
 
     private void LateInit()
@@ -70,54 +79,76 @@ public class UI : MonoBehaviour
     private void LateUpdateC()
     {
         // Wood
-        woodAmountText.text = GameManager.instance.player.Wood.ToString();
-
-        // Health
-        health.Enqueue(GameManager.instance.player.Health);
-        while (health.Count > 100)
-            health.Dequeue();
-        float healthAverage = 0.0f;
-        foreach (float f in health)
-            healthAverage += f;
-        healthAverage /= health.Count;
-
-        healthAmount.value = Mathf.CeilToInt(healthAverage);
+        woodAmountText.text = player.Wood.ToString();
 
         // White Out
-        if (GameManager.instance.player.Health <= 25.0f)
+        if (player.Health <= 25.0f)
         {
             whiteOut.gameObject.SetActive(true);
-            whiteOut.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - (GameManager.instance.player.Health / 25.0f));
+            whiteOut.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - (player.Health / 25.0f));
         }
         else
         {
             whiteOut.gameObject.SetActive(false);
         }
+    }
 
-        // Temperatur
-        temp.Enqueue(GameManager.instance.player.Temperature);
-        while (temp.Count > 100)
-            temp.Dequeue();
-        float tempAverage = 0.0f;
-        foreach (float f in temp)
-            tempAverage += f;
-        tempAverage /= temp.Count;
-
-        thermometer.value = tempAverage;
-
-        float diff = GameManager.instance.player.Temperature - tempAverage;
-
-        if (diff >= 0.001f)
+    private IEnumerator UpdateHealthAndTemp()
+    {
+        for (; ; )
         {
-            thermomenterDeltaText.text = "▲";
-        }
-        else if (diff <= -0.001f)
-        {
-            thermomenterDeltaText.text = "▼";
-        }
-        else
-        {
-            thermomenterDeltaText.text = "";
+            if (GameManager.instance.Running)
+            {
+                // Health
+                health.Enqueue(player.Health);
+                while (health.Count > 20)
+                    health.Dequeue();
+                float healthAverage = 0.0f;
+                foreach (float f in health)
+                    healthAverage += f;
+                healthAverage /= health.Count;
+
+                healthAmount.value = Mathf.CeilToInt(healthAverage);
+
+                // White Out
+                if (player.Health <= 25.0f)
+                {
+                    whiteOut.gameObject.SetActive(true);
+                    whiteOut.color = new Color(1.0f, 1.0f, 1.0f, 1.0f - (player.Health / 25.0f));
+                }
+                else
+                {
+                    whiteOut.gameObject.SetActive(false);
+                }
+
+                // Temperatur
+                temp.Enqueue(player.Temperature);
+                while (temp.Count > 20)
+                    temp.Dequeue();
+                float tempAverage = 0.0f;
+                foreach (float f in temp)
+                    tempAverage += f;
+                tempAverage /= temp.Count;
+
+                thermometer.value = tempAverage;
+
+                float diff = player.Temperature - tempAverage;
+
+                if (diff >= 0.001f)
+                {
+                    thermomenterDeltaText.text = "▲";
+                }
+                else if (diff <= -0.001f)
+                {
+                    thermomenterDeltaText.text = "▼";
+                }
+                else
+                {
+                    thermomenterDeltaText.text = "";
+                }
+            }
+
+            yield return new WaitForSeconds(0.1f);
         }
     }
 
@@ -166,7 +197,7 @@ public class UI : MonoBehaviour
 
     public void Build(GameObject building)
     {
-        Builder builder = Instantiate(builderPrefab, GameManager.instance.player.transform.position, Quaternion.identity, buildingsParent).GetComponent<Builder>();
+        Builder builder = Instantiate(builderPrefab, player.transform.position, Quaternion.identity, buildingsParent).GetComponent<Builder>();
         builder.SetUp(building);
 
         buildOverlay.SetActive(false);

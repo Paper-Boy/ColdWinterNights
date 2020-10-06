@@ -7,17 +7,20 @@ public class InputHandler : MonoBehaviour
     private Builder builder = null;
     private new Camera camera;
 
+    private GameManager gameManager;
+
     #region Initialization
 
     private void Awake()
     {
-        GameManager.instance.init += Init;
+        gameManager = GameManager.instance;
+        gameManager.init += Init;
     }
 
     private void Init()
     {
-        GameManager.instance.update += UpdateC;
-        GameManager.instance.inputHandler = this;
+        gameManager.update += UpdateC;
+        gameManager.inputHandler = this;
 
         camera = Camera.main;
     }
@@ -43,16 +46,16 @@ public class InputHandler : MonoBehaviour
 
                 if (lastTouch <= -999f)
                 {
-                    lastTouch = GameManager.instance.GameTime;
+                    lastTouch = gameManager.GameTime;
                 }
-                else if (GameManager.instance.GameTime - lastTouch >= 0.25f)
+                else if (gameManager.GameTime - lastTouch >= 0.25f)
                 {
-                    GameManager.instance.player.SetRotation(lastTouchPos);
+                    gameManager.player.SetRotation(lastTouchPos);
                 }
             }
             else if (lastTouch > -999f)
             {
-                if (GameManager.instance.GameTime - lastTouch < 0.25f)
+                if (gameManager.GameTime - lastTouch < 0.25f)
                 {
                     Raycast(lastTouchPos);
                 }
@@ -64,25 +67,25 @@ public class InputHandler : MonoBehaviour
         else if (inputMode == InputMode.Construction)
         {
             // Touch Controls
-            if (GameManager.instance.touchControls)
+            if (gameManager.touchControls)
             {
                 if (Input.touchCount == 1)
                 {
                     if (lastTouch > -999f)
                     {
-                        if (GameManager.instance.GameTime - lastTouch < 0.25f)
+                        if (gameManager.GameTime - lastTouch < 0.25f)
                         {
                             if (builder != null)
                                 builder.Move(camera.ScreenToWorldPoint(Input.GetTouch(0).position));
                         }
                         else
                         {
-                            lastTouch = GameManager.instance.GameTime;
+                            lastTouch = gameManager.GameTime;
                         }
                     }
                     else
                     {
-                        lastTouch = GameManager.instance.GameTime;
+                        lastTouch = gameManager.GameTime;
                     }
                 }
                 else
@@ -128,10 +131,10 @@ public class InputHandler : MonoBehaviour
                     switch (hit.collider.gameObject.layer)
                     {
                         case (int)Layers.Tree:
-                            GameManager.instance.player.SetTarget(hit.collider.gameObject);
+                            gameManager.player.SetTarget(hit.collider.gameObject);
                             break;
                         case (int)Layers.Building:
-                            GameManager.instance.player.SetTarget(hit.collider.gameObject);
+                            gameManager.player.SetTarget(hit.collider.gameObject);
                             break;
                         default:
                             break;
@@ -150,7 +153,7 @@ public class InputHandler : MonoBehaviour
 
             // If only Navigation was hit: Move to click position
             if (nav == true)
-                GameManager.instance.player.SetTarget(position);
+                gameManager.player.SetTarget(position);
         }
     }
 

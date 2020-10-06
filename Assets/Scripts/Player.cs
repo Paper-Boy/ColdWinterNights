@@ -36,6 +36,8 @@ public class Player : MonoBehaviour
     public GameObject footstepPrefab;
     public Transform footstepParent;
 
+    private GameManager gameManager;
+
     public int Wood { private set; get; } = 0;
     public float Health { private set; get; } = 100.0f; // Max 100
 
@@ -45,17 +47,18 @@ public class Player : MonoBehaviour
 
     private void Awake()
     {
-        GameManager.instance.init += Init;
+        gameManager = GameManager.instance;
+        gameManager.init += Init;
     }
 
     private void Init()
     {
-        GameManager.instance.player = this;
-        GameManager.instance.update += UpdateC;
+        gameManager.player = this;
+        gameManager.update += UpdateC;
 
-        mapSize = GameManager.instance.mapGenerator.mapSize / 2.0f;
+        mapSize = gameManager.mapGenerator.mapSize / 2.0f;
 
-        if (!GameManager.instance.light)
+        if (!gameManager.light)
         {
             shadowReceiver.material = unlitMaterial;
             flashlightLight.enabled = false;
@@ -184,7 +187,7 @@ public class Player : MonoBehaviour
         deltaPos += Vector2.Distance(oldPos, transform.position);
 
         // Draw Footsteps
-        if (deltaPos >= 0.1f || (deltaPos >= 0.025f && GameManager.instance.GameTime - lastStep >= 1.0f))
+        if (deltaPos >= 0.1f || (deltaPos >= 0.025f && gameManager.GameTime - lastStep >= 1.0f))
         {
             Vector3 rotatedVectorToTarget;
 
@@ -197,7 +200,7 @@ public class Player : MonoBehaviour
 
             Instantiate(footstepPrefab, transform.position - new Vector3(0, 0, 0), targetRotation, footstepParent);
 
-            lastStep = GameManager.instance.GameTime;
+            lastStep = gameManager.GameTime;
             deltaPos = 0.0f;
             reversed = !reversed;
         }
@@ -216,15 +219,15 @@ public class Player : MonoBehaviour
         flashlight.localScale = new Vector3(4.0f, 5.0f * flashlightScale, 1.0f);
         flashlightCircle.localScale = new Vector3(1.0f, 1.0f, 1.0f) * flashlightScale;
 
-        if(Health <= 0.0f)
+        if (Health <= 0.0f)
         {
-            GameManager.instance.Death();
+            gameManager.Death();
         }
     }
 
     private void CalculateTemperature()
     {
-        float delta = GameManager.instance.temperatureMap.GetTemp(transform.position) - Temperature;
+        float delta = gameManager.temperatureMap.GetTemp(transform.position) - Temperature;
         Temperature = Mathf.Clamp(Temperature + (delta * Time.deltaTime * 0.005f), -1.0f, 1.0f);
     }
 

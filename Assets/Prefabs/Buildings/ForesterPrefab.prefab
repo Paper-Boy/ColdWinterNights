@@ -180,7 +180,7 @@ MonoBehaviour:
   - {x: -0.3921855, y: -0.16777891, z: 0}
   m_ShapePathHash: 1854430544
   m_Mesh: {fileID: 0}
-  m_InstanceId: 20856
+  m_InstanceId: 24046
 --- !u!114 &9044805437089408111
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -266,14 +266,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.54901963, g: 0.31764707, b: 0.2627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cb9a89d0b2bb1ed40815eaa6b2c01bec, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4af10cf4a84c1fb42bdf5b78d4ed00ba, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
