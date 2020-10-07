@@ -7,29 +7,37 @@ using UnityEngine.UI;
 
 public class UI : MonoBehaviour
 {
-    // UI Elements
+    // HUD Elements
+    [Header("HUD Elements")]
     public TMP_Text woodAmountText;
     public Slider healthAmount;
     public Slider thermometer;
     public TMP_Text thermomenterDeltaText;
+    public GameObject buildButton;
 
+    // Death related objects
+    [Header("Death related objects")]
     public Image whiteOut;
     public GameObject deathPanel;
     public TMP_Text scoreText;
 
-    public GameObject debugParent;
-    public TMP_Text timeText;
-    public TMP_Text performanceText;
-
+    // Overlays
+    [Header("Overlays")]
     public GameObject helpOverlay;
     public GameObject buildOverlay;
 
+    // Building
+    [Header("Building")]
     public Transform buildingsParent;
     public GameObject builderPrefab;
-
-    public GameObject buildButton;
     public GameObject foresterButton;
     public GameObject guardTowerButton;
+
+    // Debug
+    [Header("Debug")]
+    public GameObject debugParent;
+    public TMP_Text timeText;
+    public TMP_Text performanceText;
 
     private Player player;
 

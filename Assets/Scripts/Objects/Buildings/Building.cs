@@ -5,25 +5,21 @@ using UnityEngine.UI;
 
 public abstract class Building : MonoBehaviour, IObject
 {
+    [Header("Variables")]
     public new string name;
+    public int woodNeeded;
+    public float range;
+    public float hitPoints = 200.0f;
+    private SpriteRenderer sprite;
 
+    // UI Elements
+    [Header("UI Elements")]
     public Sprite icon;
     public Sprite inConstruction;
     public Sprite built;
-
-    public int woodNeeded;
-
-    public float range;
-
-    private SpriteRenderer sprite;
-
-    public float hitPoints = 200.0f;
-
     public TMP_Text woodRemainingText;
     public Image woodImage;
-
     public Slider hitSlider;
-
     public ShadowCaster2D shadowCaster;
     public SpriteRenderer overlay;
 

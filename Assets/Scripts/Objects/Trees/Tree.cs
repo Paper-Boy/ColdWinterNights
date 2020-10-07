@@ -4,9 +4,12 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class Tree : MonoBehaviour, IObject
 {
+    // Materials
+    [Header("Materials")]
     public Material litMaterial;
     public Material unlitMaterial;
 
+    [Space(10)]
     public new BoxCollider2D collider2D;
 
     private Animator animator;

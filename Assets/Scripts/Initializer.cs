@@ -13,12 +13,14 @@ public class Initializer : MonoBehaviour
     public Slider loadingSlider;
     public TMP_Text loadingText;
     public GameObject startButton;
+    public TMP_Text versionText;
 
     private UnityAction init, lateInit;
 
     public void InitializeGame(UnityAction earlyInit, UnityAction init, UnityAction lateInit)
     {
         Application.targetFrameRate = 9999;
+        versionText.text = "v. " + Application.version;
 
         titelUi.SetActive(true);
         loadingUi.SetActive(true);
@@ -45,6 +47,8 @@ public class Initializer : MonoBehaviour
 
         Application.targetFrameRate = -1;
 
+
+        versionText.gameObject.SetActive(true);
         startButton.SetActive(true);
     }
 

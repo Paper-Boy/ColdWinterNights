@@ -13,7 +13,7 @@ public class NotchController : MonoBehaviour
 
     public void SetRenderBehindNotch(bool enabled)
     {
-        using (var version = new AndroidJavaClass("android.os.Build$VERSION"))
+        using (AndroidJavaClass version = new AndroidJavaClass("android.os.Build$VERSION"))
         {
             // Supported on Android 9 Pie (API 28) and later
             if (version.GetStatic<int>("SDK_INT") < 28)
@@ -21,9 +21,9 @@ public class NotchController : MonoBehaviour
                 return;
             }
         }
-        using (var unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+        using (AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
         {
-            using (var activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
+            using (AndroidJavaObject activity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity"))
             {
                 m_Window = activity.Call<AndroidJavaObject>("getWindow");
                 m_Windowattributes = m_Window.Call<AndroidJavaObject>("getAttributes");
@@ -35,12 +35,13 @@ public class NotchController : MonoBehaviour
         }
     }
 
-    void Start()
+    private void Start()
     {
-        SetRenderBehindNotch(RenderBehindNotch);
+        if (!Application.isEditor)
+            SetRenderBehindNotch(RenderBehindNotch);
     }
 
-    void ApplyAttributes()
+    private void ApplyAttributes()
     {
         if (m_Window != null && m_Windowattributes != null)
             m_Window.Call("setAttributes", m_Windowattributes);

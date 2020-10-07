@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class MapGenerator : MonoBehaviour
@@ -7,6 +8,9 @@ public class MapGenerator : MonoBehaviour
     public float scale = 5.0f;
     public GameObject treePrefab;
     public Transform treeParent;
+
+    public GameObject stonePrefab;
+    public List<Sprite> stoneSprites;
 
     public Initializer initializer;
 
@@ -72,6 +76,8 @@ public class MapGenerator : MonoBehaviour
                 float chance = Mathf.Clamp(noiseMap[x, y], 0.0f, 0.50f) * 0.325f - Random.Range(0.1f, 0.25f);
                 if (Decision(chance))
                     map[x, y] = 1;
+                else if (Decision(chance * 0.05f))
+                    map[x, y] = 2;
                 else
                     map[x, y] = 0;
             }
@@ -91,9 +97,19 @@ public class MapGenerator : MonoBehaviour
                         x: (x - width / 2.0f) / 25.0f,
                         y: (height / 2.0f - y) / 25.0f);
 
-
-
                     Instantiate(treePrefab, pos, Quaternion.identity, treeParent).GetComponent<Tree>().OldTree();
+                }
+                else if(map[x, y] == 2)
+                {
+                    Vector2 pos = new Vector2(
+                        x: (x - width / 2.0f) / 25.0f,
+                        y: (height / 2.0f - y) / 25.0f);
+
+                    GameObject stone = Instantiate(stonePrefab, pos, Quaternion.identity, treeParent);
+                    stone.GetComponent<SpriteRenderer>().sprite = stoneSprites[Random.Range(0, stoneSprites.Count)];
+
+                    if (Decision(0.5f))
+                        stone.transform.localScale = new Vector3(-0.2f, 0.2f, 1.0f);
                 }
             }
 

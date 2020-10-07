@@ -3,9 +3,14 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class Player : MonoBehaviour
 {
+    // Debug
+    [Header("Debug")]
     public bool loseLife = true;
 
-    // Navigation
+    // Navigation and Movement
+    [Header("Navigation and Movement")] 
+    public float speed = 1.0f;
+    public Transform playerRelatedObjects;
     private Vector2 targetPosition = new Vector2(-999, -999);
     private GameObject targetObject = null;
     private float angle = 0.0f;
@@ -13,28 +18,28 @@ public class Player : MonoBehaviour
     private Vector2 mapSize;
 
     // Footstep
+    [Header("Footsteps")]
     private float deltaPos = 0.0f;
     private float lastStep = 0.0f;
     private bool reversed = false;
+    public GameObject footstepPrefab;
+    public Transform footstepParent;
 
     // Flashlight
+    [Header("Flashlight")]
     public Transform flashlight;
     public Light2D flashlightLight;
     public Transform flashlightCircle;
 
+    // Light and Shadows
+    [Header("Light and Shadows")]
     public SpriteRenderer shadowReceiver;
-
     public Material unlitMaterial;
 
+    // Animation
+    [Header("Animation")]
     public SpriteRenderer sprite;
     public Animator animator;
-
-    public float speed = 1.0f;
-
-    public Transform playerRelatedObjects;
-
-    public GameObject footstepPrefab;
-    public Transform footstepParent;
 
     private GameManager gameManager;
 
@@ -117,6 +122,12 @@ public class Player : MonoBehaviour
         // Interact if in Range of Target Object
         if (targetObject != null)
         {
+            if (targetObject.GetComponent<IObject>() == null)
+            {
+                targetObject = null;
+                return;
+            }
+
             switch (targetObject.GetComponent<IObject>().ObjectsType)
             {
                 case ObjectType.Tree:
@@ -151,6 +162,9 @@ public class Player : MonoBehaviour
                     {
                         WalkTowards(targetObject.transform.position);
                     }
+                    break;
+                default:
+                    targetObject = null;
                     break;
             }
         }

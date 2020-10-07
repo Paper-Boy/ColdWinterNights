@@ -3,6 +3,7 @@
 public class Monster : MonoBehaviour
 {
     // Footsteps
+    [Header("Footsteps")]
     public GameObject footstepPrefab;
     private Transform footstepsParent;
     private float deltaPos = 0.0f;
@@ -10,15 +11,17 @@ public class Monster : MonoBehaviour
     private bool reversed = false;
 
     // Movement
+    [Header("Movement")]
+    [Range(0.1f, 10)]
+    public float speed = 1.0f;
     private Transform player;
     private Vector2 targetPos;
     private bool moveToPlayer = true;
     private Vector2 mapSize;
-
     private Animator animator;
 
-    [Range(0.1f, 10)]
-    public float speed = 1.0f;
+    // Lifetime
+    [Header("Lifetime")]
     [Range(10, 300)]
     public float lifeTime = 60.0f;
     private float born = 0.0f;
