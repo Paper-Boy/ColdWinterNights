@@ -328,12 +328,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: GuardTower
+  woodNeeded: 300
+  range: 1.5
+  hitPoints: 150
   icon: {fileID: 21300000, guid: 5fc2f5f5be233a547adbe10f26cee781, type: 3}
   inConstruction: {fileID: 21300000, guid: c8f53c74de479984e9794bb9a0753494, type: 3}
   built: {fileID: 21300000, guid: 5fc2f5f5be233a547adbe10f26cee781, type: 3}
-  woodNeeded: 300
-  range: 1.5
-  hitPoints: 200
   woodRemainingText: {fileID: 7974691723605814924}
   woodImage: {fileID: 7308163837153090506}
   hitSlider: {fileID: 5777448032714188178}

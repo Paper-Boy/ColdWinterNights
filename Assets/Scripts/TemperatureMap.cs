@@ -29,7 +29,7 @@ public class TemperatureMap
 
         float value = minTemp + map[(int)buf.x, (int)buf.y] * (maxTemp - minTemp);
 
-        value -= Mathf.Clamp(GameManager.instance.GameTime / 120.0f * 0.1f, 0.0f, 0.8f);
+        value -= Mathf.Clamp(GameManager.instance.GameTime / 240.0f * 0.1f, 0.0f, 0.8f);
 
         return value;
     }

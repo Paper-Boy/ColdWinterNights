@@ -40,7 +40,7 @@ public class Initializer : MonoBehaviour
 
     public void LoadingProgress()
     {
-        GameManager.instance.temperatureMap = new TemperatureMap(-2.0f, 1.0f);
+        GameManager.instance.temperatureMap = new TemperatureMap(-1.5f, 1.0f);
 
         loadingSlider.value = 1;
         loadingText.text = "Finished!";

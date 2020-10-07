@@ -180,7 +180,7 @@ MonoBehaviour:
   - {x: -0.3921855, y: -0.16777891, z: 0}
   m_ShapePathHash: 1854430544
   m_Mesh: {fileID: 0}
-  m_InstanceId: 23680
+  m_InstanceId: 38822
 --- !u!114 &816165236252843572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -194,12 +194,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: Cottage
+  woodNeeded: 100
+  range: 1
+  hitPoints: 150
   icon: {fileID: 21300000, guid: d1ba9dec2c049ec4c9803fb23866eac1, type: 3}
   inConstruction: {fileID: 21300000, guid: c8f53c74de479984e9794bb9a0753494, type: 3}
   built: {fileID: 21300000, guid: d1ba9dec2c049ec4c9803fb23866eac1, type: 3}
-  woodNeeded: 100
-  range: 1
-  hitPoints: 200
   woodRemainingText: {fileID: 7974691723605814924}
   woodImage: {fileID: 7308163837153090506}
   hitSlider: {fileID: 5777448032714188178}
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 6dfa6253025253f438901dc51c8b6e82, type: 2}
+  m_Material: {fileID: 0}
   m_Color: {r: 0.54901963, g: 0.31764707, b: 0.2627451, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
