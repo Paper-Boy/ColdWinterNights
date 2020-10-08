@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 6829342023017581944}
   - component: {fileID: 4636325194293243503}
   - component: {fileID: 6968789779476184559}
-  - component: {fileID: 873537419759390978}
   - component: {fileID: 1469150659330482551}
   - component: {fileID: 7397347371919073033}
   m_Layer: 9
@@ -58,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 6dfa6253025253f438901dc51c8b6e82, type: 2}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -189,37 +188,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &873537419759390978
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1196897247785960455}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: e7933ad30000000053d4afa705736223e182a692
-  m_ShapePath:
-  - {x: -0.44111758, y: 0.19663545, z: 0}
-  - {x: -0.13321243, y: 0.19014119, z: 0}
-  - {x: -0.12550601, y: -0.0024744072, z: 0}
-  - {x: 0.121099226, y: 0.0013779075, z: 0}
-  - {x: 0.12880574, y: 0.17858425, z: 0}
-  - {x: 0.49146694, y: 0.17577197, z: 0}
-  - {x: 0.2212828, y: 0.81806797, z: 0}
-  - {x: 0.07441701, y: 1.6395619, z: 0}
-  - {x: -0.20642322, y: 0.93363726, z: 0}
-  m_ShapePathHash: -1629397647
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 31108
 --- !u!114 &1469150659330482551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,8 +200,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8d75479fbe3b790478e3af650fe60245, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  litMaterial: {fileID: 2100000, guid: 6dfa6253025253f438901dc51c8b6e82, type: 2}
-  unlitMaterial: {fileID: 2100000, guid: 0407edb06e1ce5e48a4e4ae9c15f9d1c, type: 2}
   collider2D: {fileID: 4636325194293243503}
 --- !u!95 &7397347371919073033
 Animator:

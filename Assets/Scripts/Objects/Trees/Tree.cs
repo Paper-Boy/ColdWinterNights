@@ -4,18 +4,13 @@ using UnityEngine.Experimental.Rendering.Universal;
 
 public class Tree : MonoBehaviour, IObject
 {
-    // Materials
-    [Header("Materials")]
-    public Material litMaterial;
-    public Material unlitMaterial;
-
-    [Space(10)]
     public new BoxCollider2D collider2D;
 
     private Animator animator;
 
     private float born = 0.0f;
     private float hitPoints = 1.0f;
+    private int woodContent = 10;
 
     private bool alive = true;
     private bool old = false;
@@ -29,19 +24,12 @@ public class Tree : MonoBehaviour, IObject
     {
         born = GameManager.instance.GameTime;
 
-        if (!GameManager.instance.light)
-        {
-            Destroy(gameObject.GetComponent<ShadowCaster2D>());
-            GetComponent<SpriteRenderer>().material = unlitMaterial;
-        }
-        else
-        {
-            GetComponent<SpriteRenderer>().material = litMaterial;
-        }
-
         animator = GetComponent<Animator>();
 
         GameManager.instance.lateUpdate += LateUpdateC;
+
+        woodContent = Random.Range(8, 15);
+
         growTree = StartCoroutine(GrowTree());
     }
 
@@ -56,9 +44,9 @@ public class Tree : MonoBehaviour, IObject
             alive = false;
 
             if (old)
-                return 10;
+                return woodContent;
             else
-                return (int)Mathf.Clamp((GameManager.instance.GameTime - born) / 5, 0, 10);
+                return (int)(Mathf.Clamp((GameManager.instance.GameTime - born) / 60, 0.0f, 1.0f) * woodContent);
         }
         else
         {
@@ -81,19 +69,22 @@ public class Tree : MonoBehaviour, IObject
         chop = false;
     }
 
+
+    // Scales Tree acording to woodContent
     private IEnumerator GrowTree()
     {
         float scaleValue;
 
         do
         {
-            scaleValue = Mathf.Clamp((GameManager.instance.GameTime - born) / 6 * 0.045f, 0.02f, 0.45f);
+            scaleValue = Mathf.Clamp((GameManager.instance.GameTime - born) / 6 * 0.045f, 0.02f, 0.45f) / 15;
+            scaleValue *= woodContent;
             transform.localScale = new Vector3(scaleValue, scaleValue, 1);
 
             yield return new WaitForSeconds(0.5f);
         } while (!old && scaleValue < 0.45f);
 
-        transform.localScale = new Vector3(0.45f, 0.45f, 1);
+        transform.localScale = new Vector3(0.45f, 0.45f, 1) / 15 * woodContent;
 
         growTree = null;
     }

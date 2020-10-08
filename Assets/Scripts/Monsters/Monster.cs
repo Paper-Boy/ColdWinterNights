@@ -34,7 +34,6 @@ public class Monster : MonoBehaviour
         footstepsParent = GameManager.instance.footstepsParent;
 
         GameManager.instance.update += UpdateC;
-        GameManager.instance.fixedUpdate += FixedUpdateC;
 
         born = GameManager.instance.GameTime;
         player = GameManager.instance.player.transform;
@@ -48,9 +47,11 @@ public class Monster : MonoBehaviour
     {
         if (born + lifeTime <= GameManager.instance.GameTime)
             Destroy(gameObject);
+
+        Movement();
     }
 
-    private void FixedUpdateC()
+    private void Movement()
     {
         float distance = Vector2.Distance(targetPos, transform.position);
         float speedC = speed;
@@ -75,9 +76,7 @@ public class Monster : MonoBehaviour
 
             Vector2 oldPos = transform.position;
 
-            //transform.Rotate(0, 0, -CalculateTargetRotation(targetPos) * speedC * 20.0f * Time.fixedDeltaTime);
-
-            transform.position = Vector2.MoveTowards(transform.position, targetPos, speedC * 0.1f * Time.fixedDeltaTime);
+            transform.position = Vector2.MoveTowards(transform.position, targetPos, speedC * 0.1f * Time.deltaTime);
 
             deltaPos += Vector2.Distance(oldPos, transform.position);
 
@@ -113,17 +112,10 @@ public class Monster : MonoBehaviour
         return Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
     }
 
-    private float CalculateTargetRotation(Vector2 targetPos)
-    {
-        Vector3 relative = transform.InverseTransformPoint(targetPos);
-        return Mathf.Atan2(relative.x, relative.y) * Mathf.Rad2Deg;
-    }
-
     private void OnDestroy()
     {
         monsterController.Deregister(this);
 
         GameManager.instance.update -= UpdateC;
-        GameManager.instance.fixedUpdate -= FixedUpdateC;
     }
 }

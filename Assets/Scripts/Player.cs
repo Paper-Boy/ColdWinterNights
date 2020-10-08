@@ -8,7 +8,7 @@ public class Player : MonoBehaviour
     public bool loseLife = true;
 
     // Navigation and Movement
-    [Header("Navigation and Movement")] 
+    [Header("Navigation and Movement")]
     public float speed = 1.0f;
     public Transform playerRelatedObjects;
     private Vector2 targetPosition = new Vector2(-999, -999);
@@ -28,13 +28,8 @@ public class Player : MonoBehaviour
     // Flashlight
     [Header("Flashlight")]
     public Transform flashlight;
-    public Light2D flashlightLight;
     public Transform flashlightCircle;
 
-    // Light and Shadows
-    [Header("Light and Shadows")]
-    public SpriteRenderer shadowReceiver;
-    public Material unlitMaterial;
 
     // Animation
     [Header("Animation")]
@@ -62,14 +57,6 @@ public class Player : MonoBehaviour
         gameManager.update += UpdateC;
 
         mapSize = gameManager.mapGenerator.mapSize / 2.0f;
-
-        if (!gameManager.light)
-        {
-            shadowReceiver.material = unlitMaterial;
-            flashlightLight.enabled = false;
-            flashlight.GetComponent<SpriteRenderer>().enabled = true;
-            flashlightCircle.GetComponent<SpriteRenderer>().enabled = true;
-        }
     }
 
     #endregion
@@ -197,6 +184,10 @@ public class Player : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
         else
             animator.SetBool("walking", false);
+
+        // Make sure sprite does not get moved independetly
+        transform.position = sprite.transform.position;
+        sprite.transform.localPosition = Vector3.zero;
 
         deltaPos += Vector2.Distance(oldPos, transform.position);
 

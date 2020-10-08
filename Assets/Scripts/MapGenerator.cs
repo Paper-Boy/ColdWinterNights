@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// This Script generates a Map with the given size by using a perlin noise map and some random values
+/// The Script fills the Map with Trees and Stones
+/// </summary>
 public class MapGenerator : MonoBehaviour
 {
     public int width = 128, height = 128;
@@ -91,6 +95,7 @@ public class MapGenerator : MonoBehaviour
         {
             for (int x = 0; x < width; x++)
             {
+                // Spawn a Tree
                 if (map[x, y] == 1)
                 {
                     Vector2 pos = new Vector2(
@@ -99,6 +104,7 @@ public class MapGenerator : MonoBehaviour
 
                     Instantiate(treePrefab, pos, Quaternion.identity, treeParent).GetComponent<Tree>().OldTree();
                 }
+                // Spawn a stone
                 else if(map[x, y] == 2)
                 {
                     Vector2 pos = new Vector2(
@@ -107,6 +113,7 @@ public class MapGenerator : MonoBehaviour
 
                     GameObject stone = Instantiate(stonePrefab, pos, Quaternion.identity, treeParent);
                     stone.GetComponent<SpriteRenderer>().sprite = stoneSprites[Random.Range(0, stoneSprites.Count)];
+                    stone.transform.localScale *= Random.Range(0.9f, 1.1f);
 
                     if (Decision(0.5f))
                         stone.transform.localScale = new Vector3(-0.2f, 0.2f, 1.0f);

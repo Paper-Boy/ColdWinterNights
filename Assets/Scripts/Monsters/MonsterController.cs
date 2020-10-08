@@ -27,13 +27,15 @@ public class MonsterController : MonoBehaviour
 
     private void UpdateC()
     {
-        int maxMonsters = Mathf.Clamp(Mathf.RoundToInt(GameManager.instance.GameTime / newMonsterEverySeconds), 0, maximumAmountOfMonsters);
+        int maxMonsters = Mathf.Clamp(Mathf.RoundToInt(GameManager.instance.GameTime / newMonsterEverySeconds), 1, maximumAmountOfMonsters);
 
         while (monsters.Count < maxMonsters)
         {
             Monster monster = Instantiate(monsterPrefab, MonsterPosition(), Quaternion.identity, transform).GetComponent<Monster>();
             monster.Init(this);
             monsters.Add(monster);
+
+            newMonsterEverySeconds = Mathf.Clamp(newMonsterEverySeconds - 10.0f, 60.0f, 600.0f);
         }
     }
 
@@ -72,11 +74,5 @@ public class MonsterController : MonoBehaviour
     {
         if (monsters.Contains(monster))
             monsters.Remove(monster);
-    }
-
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, 0.25f);
     }
 }

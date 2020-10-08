@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 816165236252843571}
   - component: {fileID: 816165236252843568}
   - component: {fileID: -3886195956418565644}
-  - component: {fileID: 2952535768523877844}
   - component: {fileID: 816165236252843572}
   m_Layer: 0
   m_Name: CottagePrefab
@@ -56,7 +55,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,52 +134,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
---- !u!114 &2952535768523877844
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816165236252843575}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7db70e0ea77f5ac47a8f4565a9406397, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShadowGroup: 0
-  m_HasRenderer: 1
-  m_UseRendererSilhouette: 1
-  m_CastsShadows: 1
-  m_SelfShadows: 0
-  m_ApplyToSortingLayers: 00000000
-  m_ShapePath:
-  - {x: -0.39492846, y: -0.4963212, z: 0}
-  - {x: 0.38769114, y: -0.49633032, z: 0}
-  - {x: 0.3904103, y: -0.16595411, z: 0}
-  - {x: 0.49910676, y: -0.16957664, z: 0}
-  - {x: 0.5000017, y: -0.050656796, z: 0}
-  - {x: 0.3940336, y: -0.035548687, z: 0}
-  - {x: 0.39403364, y: 0.391891, z: 0}
-  - {x: 0.27484596, y: 0.39198375, z: 0}
-  - {x: 0.27484593, y: 0.1759156, z: 0}
-  - {x: 0.16951108, y: 0.17046869, z: 0}
-  - {x: 0.17132711, y: 0.28304183, z: 0}
-  - {x: 0.060543776, y: 0.28122616, z: 0}
-  - {x: 0.056911647, y: 0.3956151, z: 0}
-  - {x: -0.059812963, y: 0.39306104, z: 0}
-  - {x: -0.05750388, y: 0.28122616, z: 0}
-  - {x: -0.16465473, y: 0.28304183, z: 0}
-  - {x: -0.17191947, y: 0.17410004, z: 0}
-  - {x: -0.27725446, y: 0.17046869, z: 0}
-  - {x: -0.28270268, y: 0.0597111, z: 0}
-  - {x: -0.38803768, y: 0.056079626, z: 0}
-  - {x: -0.38985378, y: -0.049230814, z: 0}
-  - {x: -0.4972769, y: -0.05366057, z: 0}
-  - {x: -0.49727678, y: -0.16595417, z: 0}
-  - {x: -0.3921855, y: -0.16777891, z: 0}
-  m_ShapePathHash: 1854430544
-  m_Mesh: {fileID: 0}
-  m_InstanceId: 38822
 --- !u!114 &816165236252843572
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,7 +156,6 @@ MonoBehaviour:
   woodRemainingText: {fileID: 7974691723605814924}
   woodImage: {fileID: 7308163837153090506}
   hitSlider: {fileID: 5777448032714188178}
-  shadowCaster: {fileID: 2952535768523877844}
   overlay: {fileID: 3156601127328819934}
 --- !u!1 &1773128344403598832
 GameObject:

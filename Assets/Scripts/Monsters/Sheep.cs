@@ -39,7 +39,6 @@ public class Sheep : MonoBehaviour
         transform.position = targetPos;
     }
 
-
     private void Init()
     {
         animator = GetComponent<Animator>();

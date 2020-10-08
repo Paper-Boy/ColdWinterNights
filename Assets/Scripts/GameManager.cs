@@ -87,7 +87,6 @@ public class GameManager : MonoBehaviour
     // Options
     public bool debug = false;
     public bool touchControls = false;
-    public new bool light = false;
 
     public Transform footstepsParent;
     public Transform treesParent;
