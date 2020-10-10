@@ -2,8 +2,6 @@
 
 public class Sheep : MonoBehaviour
 {
-    public SpriteRenderer sprite;
-
     // Footsteps
     [Header("Footsteps")]
     public GameObject footstepPrefab;
@@ -58,9 +56,9 @@ public class Sheep : MonoBehaviour
             transform.position = Vector2.MoveTowards(transform.position, targetPos, speed * Time.deltaTime);
 
             if (transform.position.x > targetPos.x)
-                sprite.transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
+                transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
             else
-                sprite.transform.localScale = new Vector3(-0.2f, 0.2f, 1.0f);
+                transform.localScale = new Vector3(-0.2f, 0.2f, 1.0f);
 
             deltaPos += Vector2.Distance(oldPos, transform.position);
 

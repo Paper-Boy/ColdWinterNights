@@ -28,6 +28,7 @@ public class UI : MonoBehaviour
 
     // Building
     [Header("Building")]
+    public TMP_Text buildingdescriptionText;
     public Transform buildingsParent;
     public GameObject builderPrefab;
     public GameObject foresterButton;
@@ -45,6 +46,13 @@ public class UI : MonoBehaviour
     private readonly Queue<float> fps = new Queue<float>();
     private readonly Queue<float> health = new Queue<float>();
     private readonly Queue<float> temp = new Queue<float>();
+
+    // Tooltip Texts
+    private string[] tooltip = new string[4] {
+            "<b>Tap on the Building you want to build.\nTap and Hold on a Building to show a description.</b>",
+            "The <i>House</i> will provide health.",
+            "The <i>Foresters Hut</i> will plant new trees nearby",
+            "The <i>Guard Tower</i> will provide sight and will reveal monsters." };
 
     private void Awake()
     {
@@ -201,6 +209,8 @@ public class UI : MonoBehaviour
             GameManager.instance.inputHandler.SetInputMode(InputMode.UI);
         else
             GameManager.instance.inputHandler.SetInputMode(InputMode.Movement);
+
+        buildingdescriptionText.text = tooltip[0];
     }
 
     public void Build(GameObject building)
@@ -246,5 +256,13 @@ public class UI : MonoBehaviour
     public void HelpOverlay(bool show)
     {
         helpOverlay.SetActive(show);
+    }
+
+    public void ShowTooltip(int index)
+    {
+        if (index < 0 || index >= tooltip.Length)
+            return;
+
+        buildingdescriptionText.text = tooltip[index];
     }
 }

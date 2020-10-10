@@ -56,6 +56,7 @@ public class Monster : MonoBehaviour
         float distance = Vector2.Distance(targetPos, transform.position);
         float speedC = speed;
 
+        // Check if Player is looking at Monster
         if (Mathf.Abs(CalculatePlayerRotation()) >= 55.0f)
         {
             targetPos = player.position;
@@ -69,6 +70,12 @@ public class Monster : MonoBehaviour
             moveToPlayer = false;
             speedC *= 2.0f;
         }
+
+        // Rotate Monster towards Target Position
+        if (transform.position.x > targetPos.x)
+            transform.localScale = new Vector3(-0.2f, 0.2f, 1.0f);
+        else
+            transform.localScale = new Vector3(0.2f, 0.2f, 1.0f);
 
         if (distance >= 0.25f)
         {
