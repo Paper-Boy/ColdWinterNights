@@ -48,25 +48,21 @@ public class UI : MonoBehaviour
     private readonly Queue<float> temp = new Queue<float>();
 
     // Tooltip Texts
-    private string[] tooltip = new string[4] {
-            "<b>Tap on the Building you want to build.\nTap and Hold on a Building to show a description.</b>",
-            "The <i>House</i> will provide health.",
-            "The <i>Foresters Hut</i> will plant new trees nearby",
-            "The <i>Guard Tower</i> will provide sight and will reveal monsters." };
+    public string[] tooltip;
+    public string[] scoreT;
 
     private void Awake()
     {
         GameManager.instance.init += Init;
         GameManager.instance.lateInit = LateInit;
+        GameManager.instance.ui = this;
     }
 
     private void Init()
     {
-        GameManager.instance.ui = this;
-
         GameManager.instance.lateUpdate += LateUpdateC;
 
-        woodAmountText.text = 0.ToString();
+        woodAmountText.text = 0.ToString(GameManager.instance.culture);
         buildOverlay.SetActive(false);
 
         player = GameManager.instance.player;
@@ -95,7 +91,7 @@ public class UI : MonoBehaviour
     private void LateUpdateC()
     {
         // Wood
-        woodAmountText.text = player.Wood.ToString();
+        woodAmountText.text = player.Wood.ToString(GameManager.instance.culture);
 
         // White Out
         if (player.Health <= 25.0f)
@@ -190,8 +186,8 @@ public class UI : MonoBehaviour
 
             if (count >= curFPS * 0.05f)
             {
-                timeText.text = GameManager.instance.GameTime.ToString("0.00");
-                performanceText.text = (buf / fps.Count).ToString("0.00") + " FPS";
+                timeText.text = GameManager.instance.GameTime.ToString("0.00", GameManager.instance.culture);
+                performanceText.text = (buf / fps.Count).ToString("0.00", GameManager.instance.culture) + " FPS";
                 count = 0;
             }
 
@@ -232,7 +228,7 @@ public class UI : MonoBehaviour
     {
         deathPanel.SetActive(true);
         TimeSpan time = TimeSpan.FromSeconds(GameManager.instance.GameTime);
-        StartCoroutine(ScoreText("You survived for " + time.ToString("mm':'ss") + " minutes!"));
+        StartCoroutine(ScoreText(scoreT[0] + time.ToString("mm':'ss", GameManager.instance.culture) + scoreT[1]));
     }
 
     private IEnumerator ScoreText(string text)

@@ -32,7 +32,7 @@ public class Builder : MonoBehaviour
             update--;
         }
 
-        if (targetPos != new Vector2(-999, -999) && time <= GameManager.instance.GameTime)
+        if (targetPos != new Vector2(-999, -999) && time <= Time.unscaledTime)
         {
             transform.position = targetPos;
             targetPos = new Vector2(-999, -999);
@@ -96,6 +96,6 @@ public class Builder : MonoBehaviour
     public void Move(Vector2 position)
     {
         targetPos = position;
-        time = GameManager.instance.GameTime + 0.1f;
+        time = Time.unscaledTime + 0.1f;
     }
 }

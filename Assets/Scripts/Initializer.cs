@@ -35,7 +35,7 @@ public class Initializer : MonoBehaviour
     public void LoadingProgress(float value)
     {
         loadingSlider.value = value;
-        loadingText.text = value.ToString("P");
+        loadingText.text = value.ToString("P", GameManager.instance.culture);
     }
 
     public void LoadingProgress()
@@ -43,10 +43,9 @@ public class Initializer : MonoBehaviour
         GameManager.instance.temperatureMap = new TemperatureMap(-1.5f, 1.0f);
 
         loadingSlider.value = 1;
-        loadingText.text = "Finished!";
+        loadingText.text = 1.ToString("P", GameManager.instance.culture);
 
         Application.targetFrameRate = -1;
-
 
         versionText.gameObject.SetActive(true);
         startButton.SetActive(true);

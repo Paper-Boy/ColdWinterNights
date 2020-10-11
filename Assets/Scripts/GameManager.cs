@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Globalization;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
@@ -77,9 +78,25 @@ public class GameManager : MonoBehaviour
 
     #endregion
 
+    public void Pause(bool pause)
+    {
+        Running = !pause;
+
+        if (pause)
+            Time.timeScale = 0.0f;
+        else
+            Time.timeScale = 1.0f;
+    }
+
+    public void ChangeTimeScale(float multiplier)
+    {
+        Time.timeScale = Mathf.Clamp(Time.timeScale * multiplier, 0.5f, 2.0f);
+    }
+
     public void Death()
     {
         Running = false;
+        Time.timeScale = 1.0f;
 
         ui.Death();
     }
@@ -87,6 +104,8 @@ public class GameManager : MonoBehaviour
     // Options
     public bool debug = false;
     public bool touchControls = false;
+
+    public CultureInfo culture = CultureInfo.InvariantCulture;
 
     public Transform footstepsParent;
     public Transform treesParent;
@@ -107,5 +126,6 @@ internal enum Layers
 {
     Navigation = 8,
     Tree = 9,
-    Building = 10
+    Building = 10,
+    Builder = 11
 }

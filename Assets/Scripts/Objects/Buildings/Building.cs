@@ -32,7 +32,7 @@ public abstract class Building : MonoBehaviour, IObject
         sprite.sprite = inConstruction;
         gameObject.layer = (int)Layers.Building;
 
-        woodRemainingText.text = woodNeeded.ToString("0");
+        woodRemainingText.text = woodNeeded.ToString("0", GameManager.instance.culture);
     }
 
     public virtual void UpdateC()
@@ -59,7 +59,7 @@ public abstract class Building : MonoBehaviour, IObject
         {
             woodNeeded -= wood;
 
-            woodRemainingText.text = woodNeeded.ToString("0");
+            woodRemainingText.text = woodNeeded.ToString("0", GameManager.instance.culture);
 
             if (woodNeeded <= 0)
             {

@@ -1,8 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class InputHandler : MonoBehaviour
 {
+    public EventSystem eventSystem;
+
     private InputMode inputMode = InputMode.Movement;
     private Builder builder = null;
     private new Camera camera;
@@ -44,18 +47,22 @@ public class InputHandler : MonoBehaviour
                 else
                     return;
 
-                if (lastTouch <= -999f)
+                if (lastTouch <= -999f && !IsPointerOverUIObject())
                 {
-                    lastTouch = gameManager.GameTime;
+                    lastTouch = Time.unscaledTime;
                 }
-                else if (gameManager.GameTime - lastTouch >= 0.25f)
+                else if (Time.unscaledTime - lastTouch >= 0.25f && !IsPointerOverUIObject())
                 {
                     gameManager.player.SetRotation(lastTouchPos);
                 }
+                else if (IsPointerOverUIObject())
+                {
+                    lastTouch = -999f;
+                }
             }
-            else if (lastTouch > -999f)
+            else if (lastTouch > -999f && !IsPointerOverUIObject())
             {
-                if (gameManager.GameTime - lastTouch < 0.25f)
+                if (Time.unscaledTime - lastTouch < 0.25f)
                 {
                     Raycast(lastTouchPos);
                 }
@@ -73,19 +80,19 @@ public class InputHandler : MonoBehaviour
                 {
                     if (lastTouch > -999f)
                     {
-                        if (gameManager.GameTime - lastTouch < 0.25f)
+                        if (Time.unscaledTime - lastTouch < 0.25f)
                         {
                             if (builder != null)
                                 builder.Move(camera.ScreenToWorldPoint(Input.GetTouch(0).position));
                         }
                         else
                         {
-                            lastTouch = gameManager.GameTime;
+                            lastTouch = Time.unscaledTime;
                         }
                     }
                     else
                     {
-                        lastTouch = gameManager.GameTime;
+                        lastTouch = Time.unscaledTime;
                     }
                 }
                 else
@@ -111,50 +118,25 @@ public class InputHandler : MonoBehaviour
         // Create a List of colliders "under" mouse position
         List<RaycastHit2D> hits = new List<RaycastHit2D>(Physics2D.RaycastAll(position, Vector2.zero));
 
-        // Sort List by layer (get "Navigation" to front)
-        hits.Sort((x, y) => x.collider.gameObject.layer.CompareTo(y.collider.gameObject.layer));
-
-        if (hits.Count > 0)
+        // Check if nothing (including UI) is hit -> Move towards this point
+        if (hits.Count == 0 && !IsPointerOverUIObject())
         {
-            bool nav = false;
-
-            foreach (RaycastHit2D hit in hits)
-            {
-                // Navigation Mesh is hit
-                if (!nav && hit.collider.gameObject.layer == (int)Layers.Navigation)
-                {
-                    nav = true;
-                }
-                // Navigation and an Object is hit: Move to Object
-                else if (nav)
-                {
-                    switch (hit.collider.gameObject.layer)
-                    {
-                        case (int)Layers.Tree:
-                            gameManager.player.SetTarget(hit.collider.gameObject);
-                            break;
-                        case (int)Layers.Building:
-                            gameManager.player.SetTarget(hit.collider.gameObject);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    nav = false;
-                    break;
-                }
-                // Navigation is not hit
-                else
-                {
-                    nav = false;
-                    break;
-                }
-            }
-
-            // If only Navigation was hit: Move to click position
-            if (nav == true)
-                gameManager.player.SetTarget(position);
+            gameManager.player.SetTarget(position);
         }
+        // If something is hit check if it is a Building, Builder or Tree -> Interact
+        else if (!IsPointerOverUIObject())
+        {
+            if (hits[0].collider.gameObject.layer >= (int)Layers.Tree && hits[0].collider.gameObject.layer <= (int)Layers.Builder)
+                gameManager.player.SetTarget(hits[0].collider.gameObject);
+        }
+    }
+    private bool IsPointerOverUIObject()
+    {
+        PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
+        eventDataCurrentPosition.position = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventDataCurrentPosition, results);
+        return results.Count > 0;
     }
 
     public void SetInputMode(InputMode inputMode)
