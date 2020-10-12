@@ -12,7 +12,7 @@
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
-*.keystore
+user.keystore
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
