@@ -4,7 +4,7 @@ Build with Unity version 2020.x
 
 The goal of this little game is to survive for as long as possible.
 
-##Functions
+## Functions
 
 - Move player around
 - Chop down trees
@@ -19,7 +19,7 @@ The goal of this little game is to survive for as long as possible.
 	
 The game is currently published on the google play store: https://play.google.com/store/apps/details?id=com.k.digital.ColdWinterNights
 
-##Teaser
+## Teaser
 
 The wind blows around your nose. The cold burns like a thousand little needles in your face and it is difficult to keep your eyes open in this blizzard. 
 
