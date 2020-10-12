@@ -2,6 +2,10 @@
 using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// Handles growing, lifetime and hitPoints of tree
+/// Also calculates closest point from colliders to player
+/// </summary>
 public class Tree : MonoBehaviour, IObject
 {
     public new BoxCollider2D collider2D;

@@ -3,6 +3,10 @@ using System.Globalization;
 using TMPro;
 using UnityEngine;
 
+/// <summary>
+///	Handles all translation in game
+/// Handles change of language on start screen
+/// </summary>
 public class Translator : MonoBehaviour
 {
     // UI Elements

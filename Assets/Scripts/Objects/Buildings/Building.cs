@@ -3,6 +3,13 @@ using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 using UnityEngine.UI;
 
+/// <summary>
+/// Base class for all building
+/// Provides common functions:
+/// - building
+/// - repairing
+/// - building hit points
+/// </summary>
 public abstract class Building : MonoBehaviour, IObject
 {
     [Header("Variables")]

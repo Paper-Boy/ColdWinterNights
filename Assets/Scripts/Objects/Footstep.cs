@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Handles fading of footsteps
+/// </summary>
 public class Footstep : MonoBehaviour
 {
     public float lifetime;

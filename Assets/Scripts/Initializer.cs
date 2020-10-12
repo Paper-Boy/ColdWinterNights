@@ -3,6 +3,10 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+/// <summary>
+/// Sequentially initializes all (previously registered) scripts and objects
+/// Updates the loading progress bar and start button
+/// </summary>
 public class Initializer : MonoBehaviour
 {
     public GameObject ui;
@@ -32,12 +36,14 @@ public class Initializer : MonoBehaviour
         earlyInit.Invoke();
     }
 
+	// Updates loading progress bar
     public void LoadingProgress(float value)
     {
         loadingSlider.value = value;
         loadingText.text = value.ToString("P", GameManager.instance.culture);
     }
 
+	// "Finishes" loading progress bar
     public void LoadingProgress()
     {
         GameManager.instance.temperatureMap = new TemperatureMap(-1.5f, 1.0f);
@@ -51,6 +57,7 @@ public class Initializer : MonoBehaviour
         startButton.SetActive(true);
     }
 
+	// Finalizes initialization and starts the game
     public void StartGame()
     {
         GameManager gameManager = GameManager.instance;

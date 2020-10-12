@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Handles (random) movement of sheep
+/// </summary>
 public class Sheep : MonoBehaviour
 {
     // Footsteps

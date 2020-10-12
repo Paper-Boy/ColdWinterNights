@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// This script checks if device has a notch. 
+/// If so it adds a blank line in "unsafe space"
+/// </summary>
 public class NotchController : MonoBehaviour
 {
     public bool RenderBehindNotch = true;

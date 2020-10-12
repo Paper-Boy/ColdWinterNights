@@ -3,6 +3,15 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.SceneManagement;
 
+/// <summary>
+/// The GameManager handles
+/// - the initialization sequence
+/// - the GameState
+/// - the GameTime
+/// - the Update and FixedUpdate functions for all other scripts
+/// - death and restart
+/// - some globally used GameObjects
+/// </summary>
 public class GameManager : MonoBehaviour
 {
     #region Singleton
@@ -76,8 +85,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    #endregion
-
     public void Pause(bool pause)
     {
         Running = !pause;
@@ -88,10 +95,14 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1.0f;
     }
 
+
+	/// <summary> Handles Faster and Slower buttons </summary>
     public void ChangeTimeScale(float multiplier)
     {
         Time.timeScale = Mathf.Clamp(Time.timeScale * multiplier, 0.5f, 2.0f);
     }
+	
+    #endregion
 
     public void Death()
     {

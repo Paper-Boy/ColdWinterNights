@@ -2,6 +2,9 @@
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// Handles building blueprint positioning and confirmation
+/// </summary>
 public class Builder : MonoBehaviour
 {
     private SpriteRenderer sprite;

@@ -1,6 +1,13 @@
 ﻿using UnityEngine;
 using UnityEngine.Experimental.Rendering.Universal;
 
+/// <summary>
+/// Keeps track of health, woodAmount and players temperatureMap
+/// Handles 
+/// - life loss beacause of temperatureMap
+/// - player movement and rotation
+/// - player interacting with objects (e.g. tree)
+/// </summary>
 public class Player : MonoBehaviour
 {
     // Debug

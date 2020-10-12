@@ -5,6 +5,10 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/// <summary>
+/// This script handles ui updates and changes
+/// TODO: Script needs cleaning and maybe seperation in different scripts
+/// </summary>
 public class UI : MonoBehaviour
 {
     // HUD Elements

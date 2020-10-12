@@ -1,5 +1,11 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// Handles
+/// - monster movements (towards player if player is not looking at monster)
+/// - monster lifespan
+/// - damage to player
+/// </summary>
 public class Monster : MonoBehaviour
 {
     // Footsteps

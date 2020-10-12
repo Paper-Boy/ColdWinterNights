@@ -2,6 +2,10 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Handles all inputs by user (excluding buttons)
+/// Movement, interaction with objects (e.g. trees), building placement
+/// </summary>
 public class InputHandler : MonoBehaviour
 {
     public EventSystem eventSystem;
@@ -33,6 +37,14 @@ public class InputHandler : MonoBehaviour
     private float lastTouch = -999f;
     private Vector2 lastTouchPos;
 
+	/// <summary>
+	///	Handles user input:
+	/// 1. Get Input (and posiiton)
+	/// 2. determine if tap or tap and hold
+	/// 3. either set targetRotation or targetPosition for player
+	/// 
+	/// also handles placement of building blueprints
+	/// </summary>
     private void UpdateC()
     {
         // Handle inputs for Player movement
@@ -70,7 +82,7 @@ public class InputHandler : MonoBehaviour
                 lastTouch = -999f;
             }
         }
-        // Handle inputs to move construction site
+        // Handle inputs to move blueprint
         else if (inputMode == InputMode.Construction)
         {
             // Touch Controls
@@ -113,6 +125,7 @@ public class InputHandler : MonoBehaviour
         }
     }
 
+	// Checks if user tapped on object (interact) or free space (move)
     private void Raycast(Vector2 position)
     {
         // Create a List of colliders "under" mouse position
@@ -130,6 +143,8 @@ public class InputHandler : MonoBehaviour
                 gameManager.player.SetTarget(hits[0].collider.gameObject);
         }
     }
+	
+	// Checks if user tapped on any (blocking) ui object
     private bool IsPointerOverUIObject()
     {
         PointerEventData eventDataCurrentPosition = new PointerEventData(EventSystem.current);
@@ -154,7 +169,10 @@ public class InputHandler : MonoBehaviour
 
 public enum InputMode
 {
+	// standard mode for moving player
     Movement,
+	// if player opened any menu
     UI,
+	// if player places a blueprint
     Construction
 }

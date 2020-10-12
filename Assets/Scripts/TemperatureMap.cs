@@ -1,5 +1,8 @@
 ﻿using UnityEngine;
 
+/// <summary>
+/// This script takes noise map from MapGenerator and calculates temperature at given position.
+/// </summary>
 public class TemperatureMap
 {
     private readonly int width, height;

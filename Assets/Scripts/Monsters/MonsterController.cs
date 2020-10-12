@@ -1,6 +1,11 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+///	Handles
+/// - spawn of new monsters (including position)
+/// - maximum monster count
+/// </summary>
 public class MonsterController : MonoBehaviour
 {
     public GameObject monsterPrefab;
